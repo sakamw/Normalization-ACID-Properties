@@ -127,6 +127,7 @@ In 1NF, we create a separate table for borrowers and link them to the book table
 Eliminates partial dependencies by ensuring that non-key attributes depend only on the primary key. What this means, in essence, is that there should be a direct relationship between each column and the primary key, and not between other columns.
 
 **Example**:
+
 From the 1NF that was implemented, we already have two separate tables (you can check the 1NF section).
 
 Now, let’s say we want to link these tables to record borrowings. The initial approach might be to simply add a borrower_id column to the books table, as shown below:
