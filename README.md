@@ -154,7 +154,7 @@ This table establishes a clear relationship between books and borrowers. The boo
 
 ### Third Normal Form (3NF)
 
-Removes transitive dependencies by ensuring that non-key attributes depend only on the primary key. This level of normalization builds on 2NF.
+3NF builds on 2NF by eliminating transitive dependencies. A transitive dependency occurs when a non-key attribute depends on another non-key attribute, which in turn depends on the primary key. It basically takes its meaning from the transitive law.
 
 **Example**:
 
@@ -163,3 +163,5 @@ Removes transitive dependencies by ensuring that non-key attributes depend only 
 | 1                 | 1            | 1                | 2024-05-04    | 2024-05-20 |
 | 2                 | 2            | 4                | 2024-05-04    | 2024-05-18 |
 | 3                 | 3            | 6                | 2024-05-04    | 2024-05-10 |
+
+By placing the due_date column in the book_borrowing table, we have successfully eliminated the transitive dependency.
