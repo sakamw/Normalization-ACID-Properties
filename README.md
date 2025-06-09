@@ -158,6 +158,45 @@ This table establishes a clear relationship between books and borrowers. The boo
 
 **Example**:
 
+**Books table**
+
+| book_id | title                                 | author           | genre   |
+| ------- | ------------------------------------- | ---------------- | ------- |
+| 1       | To Kill a Mockingbird                 | Harper Lee       | Fiction |
+| 2       | The Lord of the Rings                 | J. R. R. Tolkien | Fantasy |
+| 3       | Harry Potter and the Sorcerer’s Stone | J.K. Rowling     | Fantasy |
+
+**Borrowers table**
+
+| borrower_id | name         | book_id (FK) |
+| ----------- | ------------ | ------------ |
+| 1           | John Doe     | 1            |
+| 2           | Jane Doe     | 1            |
+| 3           | James Brown  | 1            |
+| 4           | Emily Garcia | 2            |
+| 5           | David Lee    | 2            |
+| 6           | Michael Chen | 3            |
+
+**Book_borrowings table**
+
+| borrowing_id (PK) | book_id (FK) | borrower_id (FK) | borrowed_date |
+| ----------------- | ------------ | ---------------- | ------------- |
+| 1                 | 1            | 1                | 2024-05-04    |
+| 2                 | 2            | 4                | 2024-05-04    |
+| 3                 | 3            | 6                | 2024-05-04    |
+
+The 2NF structure looks efficient, but there might be a hidden dependency. Imagine we add a due_date column to the books table. This might seem logical at first sight, but it’s going to create a transitive dependency where:
+
+- The due_date column depends on the borrowing_id (a non-key attribute) from the book_borrowings table.
+- The borrowing_id in turn depends on book_id (the primary key) of the books table.
+- The implication of this is that due_date relies on an intermediate non-key attribute (borrowing_id) instead of directly depending on the primary key (book_id). This violates 3NF.
+
+#### The Solution
+
+We can move the due_date column to the most appropriate table by updating the book_borrowings table to include the due_date and returned_date columns.
+
+Below is the updated table:
+
 | borrowing_id (PK) | book_id (FK) | borrower_id (FK) | borrowed_date | due_date   |
 | ----------------- | ------------ | ---------------- | ------------- | ---------- |
 | 1                 | 1            | 1                | 2024-05-04    | 2024-05-20 |
